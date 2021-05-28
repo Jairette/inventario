@@ -48,6 +48,9 @@ public class Controlador extends HttpServlet {
                     case "menu":
                         siguientepag = "/menu.jsp";
                         break;
+                    case "verDatosWoo":
+                        siguientepag= "/verdatosproductowoo.jsp";
+                        break;
                     case "modificarprodte":
                         siguientepag = "/modificarproductotecnico.jsp";
                         break;

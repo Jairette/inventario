@@ -4,8 +4,10 @@
     Author     : Guanat
 --%>
 
+<%@page import="es.modelo.Disponibilidad"%>
 <%@page import="es.ModeloDAO.TiendaDAO"%>
 <%@page import="es.ModeloDAO.ProductoDAO"%>
+<%@page import="es.ModeloDAO.DisponibilidadDAO"%>
 <%@page import="es.modelo.Producto"%>
 <%@page import="es.modelo.Usuario"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,9 +16,6 @@
 <!DOCTYPE html>
 <%
     session = request.getSession();
-    String sessionId = session.getId();
-    String usuario = (String) session.getAttribute("usuario");
-    String contra = (String) session.getAttribute("contra");
     if ((Boolean) session.getAttribute("usuarioValido")) {
 %>
 <html>
@@ -41,6 +40,7 @@
                         <th>Nombre del Producto</th>
                         <th>Estado final</th>
                         <th>Ciclos</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,28 +51,56 @@
                         <th><%= p.getNumSerie()%></th>
                         <th><%= p.getNombreProducto()%></th>
                         <th><%= p.getEsFinal()%></th>
-                        <th><% session.setAttribute("idproducto", p.getIdProducto());%><a href="Controlador">Realizar evaluacion del producto</a></th>
                         <th><%= p.getCiclos()%></th>
-                    </tr>     
+                        <th><% session.setAttribute("idproducto", p.getIdProducto());%><a href="Controlador">Realizar evaluacion del producto</a></th>
+                    </tr>                   
                     <% }
                     %>
                 </tbody>
             </table>
         </form>
         <%          break;
-             case "web":
-             
+            case "web":
         %>
+        <form action="Controlador">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Disponibilidad</th>
+                        <th>Sku</th>
+                        <th>Numero de serie</th>
+                        <th>Nombre del Producto</th>
+                        <th>Estado final</th>
+                        <th>Ciclos</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%  session.setAttribute("estado", "verDatosWoo");
+                    for (Producto p : listaProducto){%>
+                    <tr>
+                        <th><%= new DisponibilidadDAO().list(p.getIdDisponibilidad()).getNombreDisponibilidad() %></th>
+                        <th><%= p.getSku()%></th>
+                        <th><%= p.getNumSerie()%></th>
+                        <th><%= p.getNombreProducto()%></th>
+                        <th><%= p.getEsFinal()%></th>
+                        <th><%= p.getCiclos()%></th>
+                        <th><% session.setAttribute("idproducto", p.getIdProducto());%><a href="Controlador">Realizar evaluacion del producto</a></th>
+                    </tr>                   
+                    <% }
+                    %>
+                </tbody>
+            </table>
+        </form>
 
         <%          break;
             case "Supervisor":
                 session.setAttribute("estado", "login");%>
 
-
         <%          break;
-                case "":
-                default:
-                    session.setAttribute("estado", "login");%>
+            case "":
+            default:
+                session.setAttribute("estado", "login");%>
         <h1>error con los premisos</h1>
         <a href="Controlador">volver al login</a>
         <%     break;
