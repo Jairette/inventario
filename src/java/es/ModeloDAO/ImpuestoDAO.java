@@ -27,7 +27,7 @@ public class ImpuestoDAO implements CRUD<Impuesto> {
     }
 
     @Override
-    public List listar() {
+    public ArrayList<Impuesto> listar() {
         ArrayList<Impuesto> list = new ArrayList<>();
         String sql = "select * from impuesto";
         try {

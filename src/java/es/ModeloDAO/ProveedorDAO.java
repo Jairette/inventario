@@ -28,7 +28,7 @@ public class ProveedorDAO implements CRUD<Proveedor> {
     }
 
     @Override
-    public List listar() {
+    public ArrayList<Proveedor> listar() {
         ArrayList<Proveedor> list = new ArrayList<>();
         String sql = "select * from proveedor";
         try {

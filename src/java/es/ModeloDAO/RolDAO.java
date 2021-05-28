@@ -31,7 +31,7 @@ public class RolDAO implements CRUD<Rol> {
     }
 
     @Override
-    public List listar() {
+    public ArrayList<Rol> listar() {
         ArrayList<Rol> list = new ArrayList<>();
         String sql = "select * from rol";
         try {

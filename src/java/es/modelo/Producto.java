@@ -14,11 +14,77 @@ import java.sql.Date;
 public class Producto {
 
     private int idProducto, idDisponibilidad, idCategoria, idImpuesto, numPedido, idTienda, cantidad, idtienda;
-    private String sku, numSerie, detalles, esLlegada, esFinal, notas, ciclos;
+    private String sku, numSerie, detalles, esLlegada, esFinal, notas, ciclos,nombreProducto,color,teclado,AccesoriosIncluidos,defectos,anotaciones;
     private Date fechaCompra, fechaVenta;
     private boolean visibilidad;
     private double costo, costoTotal, envio, otros, iva_dif_iva, porcentaje, valor, pvp, valor2;
 
+    public String getAnotaciones() {
+        return anotaciones;
+    }
+
+    public void setAnotaciones(String anotaciones) {
+        this.anotaciones = anotaciones;
+    }
+    
+    
+    
+    public String getDefectos() {
+        return defectos;
+    }
+
+    public void setDefectos(String defectos) {
+        this.defectos = defectos;
+    }
+    
+    
+    
+    public String getAccesoriosIncluidos() {
+        return AccesoriosIncluidos;
+    }
+
+    public void setAccesoriosIncluidos(String AccesoriosIncluidos) {
+        this.AccesoriosIncluidos = AccesoriosIncluidos;
+    }
+
+    
+    
+    public String getTeclado() {
+        if(teclado == null || teclado.equals("")){
+            return "el producto no tiene teclado";
+        }
+        return teclado;
+    }
+
+    public void setTeclado(String teclado) {
+        this.teclado = teclado;
+    }
+    
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    
+    public int getIdtienda() {
+        return idtienda;
+    }
+
+    public void setIdtienda(int idtienda) {
+        this.idtienda = idtienda;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+    
     public Date getFechaVenta() {
         return fechaVenta;
     }
@@ -227,7 +293,8 @@ public class Producto {
         this.valor2 = valor2;
     }
 
-    public Producto(int idProducto, int idDisponibilidad, int idCategoria, int idImpuesto, int numPedido, int idTienda, int cantidad, String sku, String numSerie, String detalles, String esLlegada, String notas, String ciclos, Date fechaCompra, boolean visibilidad, double costo, double costoTotal, double envio, double otros, double iva_dif_iva, double porcentaje, double valor, double pvp, double valor2) {
+    public Producto(int idProducto, int idDisponibilidad, int idCategoria, int idImpuesto, int numPedido, int idTienda, int cantidad, String sku, String numSerie, String detalles, String esLlegada, String notas, String ciclos, Date fechaCompra, boolean visibilidad, double costo, double costoTotal, double envio, double otros, double iva_dif_iva, double porcentaje, double valor, double pvp, double valor2,String nombreProducto,String color) {
+        this.nombreProducto=nombreProducto;
         this.idProducto = idProducto;
         this.idDisponibilidad = idDisponibilidad;
         this.idCategoria = idCategoria;
@@ -239,7 +306,6 @@ public class Producto {
         this.numSerie = numSerie;
         this.detalles = detalles;
         this.esLlegada = esLlegada;
-        this.idtienda = idTienda;
         this.notas = notas;
         this.ciclos = ciclos;
         this.fechaCompra = fechaCompra;

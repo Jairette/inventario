@@ -15,41 +15,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class Controlador extends HttpServlet{
-
+public class Controlador extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             HttpSession session = request.getSession(true);
-            
+
             String estado = (String) session.getAttribute("estado");
-            
-            String siguientepag = "";
-            
-            String emailUsuario=request.getParameter("email");
-            
-            String contrasena= request.getParameter("contrasena");
-            
-            UsuarioDAO usuariodao=new UsuarioDAO();
-           
+
+            String emailUsuario = request.getParameter("email");
+
+            String contrasena = request.getParameter("contrasena");
+
+            UsuarioDAO usuariodao = new UsuarioDAO();
+
             //out.println(usuario+password);
-            
-            Usuario usuario=usuariodao.validaUsuario(emailUsuario, contrasena);
-            
-            Rol rolusuario=new RolDAO().rolUsuario(usuario);
-           
+            Usuario usuario = usuariodao.validaUsuario(emailUsuario, contrasena);
+
+            Rol rolusuario = new RolDAO().rolUsuario(usuario);
+
             session.setAttribute("rol", rolusuario.getNombreRol());
-            if (usuario!=null){
-                session.setAttribute("rol",out);
+            if (usuario != null) {
+                String siguientepag = "";
+                session.setAttribute("usuarioValido", true);
                 switch (estado) {
                     case "login":
                         siguientepag = "/index.jsp";
                         break;
                     case "menu":
                         siguientepag = "/menu.jsp";
+                        break;
+                    case "modificarprodte":
+                        siguientepag = "/modificarproductotecnico.jsp";
                         break;
                     case "":
                     default:
@@ -61,7 +61,6 @@ public class Controlador extends HttpServlet{
             }
         }
     }
-    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

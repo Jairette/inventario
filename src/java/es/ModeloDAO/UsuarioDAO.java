@@ -30,7 +30,7 @@ public class UsuarioDAO implements CRUD<Usuario> {
     }
 
     @Override
-    public List listar() {
+    public ArrayList<Usuario> listar() {
         ArrayList<Usuario> list = new ArrayList<>();
         String sql = "select * from usuario";
         RolDAO rdao = new RolDAO();

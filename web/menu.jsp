@@ -4,6 +4,7 @@
     Author     : Guanat
 --%>
 
+<%@page import="es.ModeloDAO.TiendaDAO"%>
 <%@page import="es.ModeloDAO.ProductoDAO"%>
 <%@page import="es.modelo.Producto"%>
 <%@page import="es.modelo.Usuario"%>
@@ -27,7 +28,7 @@
     <body>
         <%
             String rol = (String) session.getAttribute("rol");
-            ArrayList<Producto> listaProducto=new ProductoDAO().listar();
+            ArrayList<Producto> listaProducto = new ProductoDAO().listar();
             switch (rol) {
                 case "tecnico":
         %>
@@ -35,32 +36,33 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Nombre del Producto</th>
                         <th>Sku</th>
                         <th>Numero de serie</th>
-                        <th>Nombre del poducto</th>
-                        <th>Color</th>
-                        <th>Teclado</th>
-                        <th>Accesorios incluidos</th>
-                        <th>Estado</th>
-                        <th>N estado</th>
-                        <th>Tienda</th>
-                        <th>ciclos</th>
-                        <th>Notas supervisor</th>
-                        <th>Quien</th>
+                        <th>Nombre del Producto</th>
+                        <th>Estado final</th>
+                        <th>Ciclos</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <%
-                        
+                    <%  session.setAttribute("estado", "modificarprodte");
+                        for (Producto p : listaProducto) {%>
+                    <tr>
+                        <th><%= p.getSku()%></th>
+                        <th><%= p.getNumSerie()%></th>
+                        <th><%= p.getNombreProducto()%></th>
+                        <th><%= p.getEsFinal()%></th>
+                        <th><% session.setAttribute("idproducto", p.getIdProducto());%><a href="Controlador">Realizar evaluacion del producto</a></th>
+                        <th><%= p.getCiclos()%></th>
+                    </tr>     
+                    <% }
                     %>
                 </tbody>
             </table>
-
-            <a href="Controlador">Realizar evaluacion del producto</a>
         </form>
         <%          break;
-                case "web":%>
+             case "web":
+             
+        %>
 
         <%          break;
             case "Supervisor":

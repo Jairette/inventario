@@ -26,7 +26,7 @@ public class DisponibilidadDAO implements CRUD<Disponibilidad>{
     }
 
     @Override
-    public List listar() {
+    public ArrayList<Disponibilidad> listar() {
         ArrayList<Disponibilidad> list = new ArrayList<>();
         String sql = "select * from disponibilidad";
         try {

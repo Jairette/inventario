@@ -26,8 +26,7 @@ public class TiendaDAO implements CRUD<Tienda> {
         con = new Conexion().getConnextion();
     }
 
-    @Override
-    public List listar() {
+    public ArrayList<Tienda> listar() {
         ArrayList<Tienda> list = new ArrayList<>();
         String sql = "select * from tienda";
         try {
