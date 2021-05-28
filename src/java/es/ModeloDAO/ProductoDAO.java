@@ -27,7 +27,7 @@ public class ProductoDAO implements CRUD<Producto> {
     }
 
     @Override
-    public List listar() {
+    public ArrayList<Producto> listar() {
         ArrayList<Producto> list = new ArrayList<>();
         String sql = "select * from rol";
         try {

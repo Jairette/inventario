@@ -27,7 +27,7 @@ public class CategoriaDAO implements CRUD<Categoria> {
     }
 
     @Override
-    public List listar() {
+    public ArrayList<Categoria> listar() {
         ArrayList<Categoria> list = new ArrayList<>();
         String sql = "select * from categoria";
         try {

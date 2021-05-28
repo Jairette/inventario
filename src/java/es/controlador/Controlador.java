@@ -1,7 +1,9 @@
 package es.controlador;
 
+import es.ModeloDAO.RolDAO;
 import es.ModeloDAO.UsuarioDAO;
 import es.conexion.Conexion;
+import es.modelo.Rol;
 import es.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,12 +17,6 @@ import javax.servlet.http.HttpSession;
 
 public class Controlador extends HttpServlet{
 
-    String listar = "vistas/listar.jsp";
-    String add = "vistas/add.jsp";
-    String edit = "vistas/edit.jsp";
-//    Persona p=new Persona();
-//    PersonaDAO dao=new PersonaDAO();
-    int id;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,21 +29,29 @@ public class Controlador extends HttpServlet{
             
             String siguientepag = "";
             
-            Conexion conexion= new Conexion();
-            
             String emailUsuario=request.getParameter("email");
             
             String contrasena= request.getParameter("contrasena");
+            
             UsuarioDAO usuariodao=new UsuarioDAO();
+           
             //out.println(usuario+password);
+            
             Usuario usuario=usuariodao.validaUsuario(emailUsuario, contrasena);
+            
+            Rol rolusuario=new RolDAO().rolUsuario(usuario);
+           
+            session.setAttribute("rol", rolusuario.getNombreRol());
             if (usuario!=null){
+                session.setAttribute("rol",out);
                 switch (estado) {
                     case "login":
                         siguientepag = "/index.jsp";
+                        break;
                     case "menu":
                         siguientepag = "/menu.jsp";
                         break;
+                    case "":
                     default:
                         siguientepag = "/index.jsp";
                         break;

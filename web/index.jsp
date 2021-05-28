@@ -17,6 +17,7 @@
                     session = request.getSession();
                     String sessionid = session.getId();
                     session.setAttribute("estado", "menu");
+                    session.setAttribute("rol","");
                 %>
                 <input type="text" name="usuario" id="user">
                 <input type="password" name="contrasena" id="password">

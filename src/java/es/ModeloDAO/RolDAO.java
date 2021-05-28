@@ -7,12 +7,16 @@ package es.ModeloDAO;
 
 import es.conexion.Conexion;
 import es.modelo.Rol;
+import es.modelo.Usuario;
 import interfaces.CRUD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -100,4 +104,21 @@ public class RolDAO implements CRUD<Rol> {
         return false;
     }
 
+    public Rol rolUsuario(Usuario usuario) {
+        Rol rol = new Rol();
+        try {
+
+            String sql = "select rol.* from rol inner join usuario on "
+                    + "rol.idrol = usuario.idrol where usuario.id=" + usuario.getIdUsuario();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                rol.setIdRol(rs.getInt("idrol"));
+                rol.setNombreRol(rs.getString("nombrerol"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rol;
+    }
 }
