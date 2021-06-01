@@ -44,8 +44,6 @@ public class Producto {
     public void setAccesoriosIncluidos(String AccesoriosIncluidos) {
         this.AccesoriosIncluidos = AccesoriosIncluidos;
     }
-
-    
     
     public String getTeclado() {
         if(teclado == null || teclado.equals("")){

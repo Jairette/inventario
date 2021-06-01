@@ -71,4 +71,9 @@ public class Usuario {
     public Usuario() {
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", idrol=" + idrol + ", password=" + password + ", email=" + email + ", listapermiso=" + listapermiso + '}';
+    }
+    
 }

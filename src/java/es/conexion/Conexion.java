@@ -7,13 +7,6 @@ package es.conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,8 +20,9 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventario", "admin", "admin");
+            System.out.println("conexion establecida");
         } catch (Exception e) {
-            System.err.println("Error" + e);
+            System.err.println("Error al establecer la conexion" + e);
         }
     }
 

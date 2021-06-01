@@ -19,8 +19,11 @@
                     session.setAttribute("estado", "menu");
                     session.setAttribute("rol","");
                 %>
-                <input type="text" name="usuario" id="user">
-                <input type="password" name="contrasena" id="password">
+                <label>Nombre de usuario
+                    <input type="text" name="email" id="user">
+                </label>
+                <label>Contraseña
+                    <input type="password" name="contrasena" id="password"></label>
                 <input type="submit" value="enviar">
             </form>
         </div>

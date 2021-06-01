@@ -38,4 +38,9 @@ public class Rol {
     public Rol() {
     }
 
+    @Override
+    public String toString() {
+        return "Rol{" + "idRol=" + idRol + ", nombreRol=" + nombreRol + '}';
+    }
+
 }

@@ -14,10 +14,7 @@
 <%@page import="es.ModeloDAO.UsuarioDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-    session = request.getSession();
-    if ((Boolean) session.getAttribute("usuarioValido")) {
-%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,10 +23,15 @@
     </head>
     <body>
         <%
+            session = request.getSession();
+            //if ((Boolean) session.getAttribute("usuarioValido")) {
+        %>
+        <h1>Estamos en la b del menu</h1>
+        <!--<% /* 
             String rol = (String) session.getAttribute("rol");
             ArrayList<Producto> listaProducto = new ProductoDAO().listar();
             switch (rol) {
-                case "tecnico":
+                case "tecnico":*/
         %>
         <form action="Controlador">
             <table>
@@ -44,23 +46,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%  session.setAttribute("estado", "modificarprodte");
-                        for (Producto p : listaProducto) {%>
-                    <tr>
-                        <th><%= p.getSku()%></th>
-                        <th><%= p.getNumSerie()%></th>
-                        <th><%= p.getNombreProducto()%></th>
-                        <th><%= p.getEsFinal()%></th>
-                        <th><%= p.getCiclos()%></th>
-                        <th><% session.setAttribute("idproducto", p.getIdProducto());%><a href="Controlador">Realizar evaluacion del producto</a></th>
-                    </tr>                   
-                    <% }
-                    %>
-                </tbody>
-            </table>
-        </form>
-        <%          break;
-            case "web":
+        <% /* session.setAttribute("estado", "modificarprodte");
+                        for (Producto p : listaProducto) { */%>
+        <tr>
+            <th><%=""/* p.getSku()*/%></th>
+            <th><%="" /* p.getNumSerie()*/%></th>
+            <th><%="" /* p.getNombreProducto()*/%></th>
+            <th><%="" /* p.getEsFinal()*/%></th>
+            <th><%="" /* p.getCiclos() */%></th>
+            <th><%/* session.setAttribute("idproducto", p.getIdProducto());*/%><a href="Controlador">Realizar evaluacion del producto</a></th>
+        </tr>                   
+        <% /* }*/
+        %>
+    </tbody>
+</table>
+</form>
+        <%         /* break;
+            case "web": */
         %>
         <form action="Controlador">
             <table>
@@ -76,34 +78,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%  session.setAttribute("estado", "verDatosWoo");
-                    for (Producto p : listaProducto){%>
-                    <tr>
-                        <th><%= new DisponibilidadDAO().list(p.getIdDisponibilidad()).getNombreDisponibilidad() %></th>
-                        <th><%= p.getSku()%></th>
-                        <th><%= p.getNumSerie()%></th>
-                        <th><%= p.getNombreProducto()%></th>
-                        <th><%= p.getEsFinal()%></th>
-                        <th><%= p.getCiclos()%></th>
-                        <th><% session.setAttribute("idproducto", p.getIdProducto());%><a href="Controlador">Realizar evaluacion del producto</a></th>
-                    </tr>                   
-                    <% }
-                    %>
-                </tbody>
-            </table>
-        </form>
+        <% /* session.setAttribute("estado", "verDatosWoo");
+        for (Producto p : listaProducto){
+             */
+        %>
+        <tr>
+            <th><%=""/* new DisponibilidadDAO().list(p.getIdDisponibilidad()).getNombreDisponibilidad()*/%></th>
+            <th><%= ""/*p.getSku()*/%></th>
+            <th><%= ""/*p.getNumSerie()*/%></th>
+            <th><%= ""/*p.getNombreProducto()*/%></th>
+            <th><%= ""/*p.getEsFinal()*/%></th>
+            <th><%= ""/*p.getCiclos()*/%></th>
+            <th><% /*session.setAttribute("idproducto", p.getIdProducto()); */ %><a href="Controlador">Realizar evaluacion del producto</a></th>
+        </tr>                   
+        <%/* }*/
+        %>
+    </tbody>
+</table>
+</form>
 
-        <%          break;
+        <%  /*        break;
             case "Supervisor":
-                session.setAttribute("estado", "login");%>
+                session.setAttribute("estado", "login");*/%>
 
-        <%          break;
+        <%/*          break;
             case "":
             default:
-                session.setAttribute("estado", "login");%>
+                session.setAttribute("estado", "login");*/%>
         <h1>error con los premisos</h1>
         <a href="Controlador">volver al login</a>
-        <%     break;
-            }%>
+        <%    //break;
+        //} else {%>-->
+        <h1>estamos en el a del menu usuario no valido</h1>
+        <%//}%>
     </body>
 </html>

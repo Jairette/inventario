@@ -114,19 +114,19 @@ public class UsuarioDAO implements CRUD<Usuario> {
         return false;
     }
     
-    public Usuario validaUsuario(String nombreusuario, String contrasena) {
+    public Usuario validaUsuario(String email, String contrasena) {
         Usuario usuario = null;
         try {
             usuario = new Usuario();
-            String sql = "select idusuario from usuario where usuario.nombreusuario='"
-                    + nombreusuario + "' and usuario.password='" + contrasena + "'";
+            String sql = "select * from usuario where usuario.email='"
+                    + email + "' and usuario.password='" + contrasena + "'";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                usuario.setIdUsuario(rs.getInt("idusuario"));
-                usuario.setNombreUsuario(rs.getString("nombreusuario"));
-                usuario.setIdrol(rs.getInt("idrol"));
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNombreUsuario(rs.getString("Nombre"));
+                usuario.setIdrol(rs.getInt("idRol"));
                 usuario.setPassword(rs.getString("password"));
                 usuario.setEmail(rs.getString("email"));
             }

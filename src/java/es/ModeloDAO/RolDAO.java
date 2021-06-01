@@ -108,7 +108,7 @@ public class RolDAO implements CRUD<Rol> {
         try {
 
             String sql = "select rol.* from rol inner join usuario on "
-                    + "rol.idrol = usuario.idrol where usuario.id=" + usuario.getIdUsuario();
+                    + "rol.idrol = usuario.idRol where usuario.idUsuario=" + usuario.getIdUsuario();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){

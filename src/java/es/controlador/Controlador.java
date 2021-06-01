@@ -31,16 +31,13 @@ public class Controlador extends HttpServlet {
             String contrasena = request.getParameter("contrasena");
 
             UsuarioDAO usuariodao = new UsuarioDAO();
-
-            //out.println(usuario+password);
             Usuario usuario = usuariodao.validaUsuario(emailUsuario, contrasena);
-
-            Rol rolusuario = new RolDAO().rolUsuario(usuario);
-
-            session.setAttribute("rol", rolusuario.getNombreRol());
-            if (usuario != null) {
-                String siguientepag = "";
+            String siguientepag = "";
+            if (usuario.getIdUsuario() != -1) {
                 session.setAttribute("usuarioValido", true);
+                Rol rolusuario = new RolDAO().rolUsuario(usuario);
+                out.print("rol "+rolusuario);
+                session.setAttribute("rol", rolusuario.getNombreRol());
                 switch (estado) {
                     case "login":
                         siguientepag = "/index.jsp";
@@ -49,7 +46,7 @@ public class Controlador extends HttpServlet {
                         siguientepag = "/menu.jsp";
                         break;
                     case "verDatosWoo":
-                        siguientepag= "/verdatosproductowoo.jsp";
+                        siguientepag = "/verdatosproductowoo.jsp";
                         break;
                     case "modificarprodte":
                         siguientepag = "/modificarproductotecnico.jsp";
@@ -59,9 +56,13 @@ public class Controlador extends HttpServlet {
                         siguientepag = "/index.jsp";
                         break;
                 }
-                RequestDispatcher vista = request.getRequestDispatcher(siguientepag);
-                vista.forward(request, response);
+            } else {
+                session.setAttribute("usuarioValido", false);
+                siguientepag="/index.jsp";
+                
             }
+            RequestDispatcher vista = request.getRequestDispatcher(siguientepag);
+            vista.forward(request, response);
         }
     }
 
