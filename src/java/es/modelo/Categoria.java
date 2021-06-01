@@ -11,7 +11,7 @@ package es.modelo;
  */
 public class Categoria {
 
-    private int idCategoria;
+    private int idCategoria = -1;
     private String nombreCategoria;
 
     public int getIdCategoria() {

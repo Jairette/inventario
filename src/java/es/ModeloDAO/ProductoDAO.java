@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  *
@@ -100,7 +100,7 @@ public class ProductoDAO implements CRUD<Producto> {
                 producto.setNotas(rs.getString("notas"));
                 producto.setCiclos(rs.getString("ciclos"));
             }
-            return (producto.getIdProducto()== -1) ? producto : null;
+            return (producto.getIdProducto()!= -1) ? producto : null;
         } catch (Exception e) {
         }
         return null;

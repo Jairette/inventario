@@ -11,7 +11,7 @@ package es.modelo;
  */
 public class Proveedor {
 
-    private int idProveedor;
+    private int idProveedor = -1;
     private String NombreProveedor;
 
     public int getIdProveedor() {
