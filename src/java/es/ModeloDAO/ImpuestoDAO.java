@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  *
@@ -57,7 +57,7 @@ public class ImpuestoDAO implements CRUD<Impuesto> {
                 impuesto.setIdImpuesto(rs.getInt("idimpuesto"));
                 impuesto.setNombreImpuesto(rs.getString("nombreimpuesto"));
             }
-            return (impuesto.getIdImpuesto() == -1) ? impuesto : null;
+            return (impuesto.getIdImpuesto() != -1) ? impuesto : null;
         } catch (Exception e) {
         }
         return null;

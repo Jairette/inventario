@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -33,6 +32,7 @@ public class TiendaDAO implements CRUD<Tienda> {
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
                 Tienda tienda = new Tienda();
                 tienda.setIdTienda(rs.getInt("idtienda"));
@@ -56,7 +56,7 @@ public class TiendaDAO implements CRUD<Tienda> {
                 tienda.setIdTienda(rs.getInt("idtienda"));
                 tienda.setNombreTienda(rs.getString("nombretienda"));
             }
-            return (tienda.getIdTienda() == -1) ? tienda : null;
+            return (tienda.getIdTienda() != -1) ? tienda : null;
         } catch (Exception e) {
         }
         return null;

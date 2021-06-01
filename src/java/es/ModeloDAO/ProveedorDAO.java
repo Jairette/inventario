@@ -7,13 +7,12 @@ package es.ModeloDAO;
 
 import es.conexion.Conexion;
 import es.modelo.Proveedor;
-import es.modelo.Proveedor;
 import interfaces.CRUD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  *
@@ -58,7 +57,7 @@ public class ProveedorDAO implements CRUD<Proveedor> {
                 proveedor.setIdProveedor(rs.getInt("idproveedor"));
                 proveedor.setNombreProveedor(rs.getString("nombreproveedor"));
             }
-            return (proveedor.getIdProveedor() == -1) ? proveedor : null;
+            return (proveedor.getIdProveedor() != -1) ? proveedor : null;
         } catch (Exception e) {
         }
         return null;

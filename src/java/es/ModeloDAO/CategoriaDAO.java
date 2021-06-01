@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -57,7 +56,7 @@ public class CategoriaDAO implements CRUD<Categoria> {
                 categoria.setIdCategoria(rs.getInt("idcategoria"));
                 categoria.setNombreCategoria(rs.getString("nombrecategoria"));
             }
-            return (categoria.getIdCategoria() == -1) ? categoria : null;
+            return (categoria.getIdCategoria() != -1) ? categoria : null;
         } catch (Exception e) {
         }
         return null;

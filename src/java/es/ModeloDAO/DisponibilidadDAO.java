@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 /**
  *
  * @author Guanat
@@ -56,7 +55,7 @@ public class DisponibilidadDAO implements CRUD<Disponibilidad>{
                 disponibilidad.setIdDisponibilidad(rs.getInt("iddisponibilidad"));
                 disponibilidad.setNombreDisponibilidad(rs.getString("nombredisponibilidad"));
             }
-            return (disponibilidad.getIdDisponibilidad() == -1) ? disponibilidad : null;
+            return (disponibilidad.getIdDisponibilidad() != -1) ? disponibilidad : null;
         } catch (Exception e) {
         }
         return null;

@@ -5,6 +5,8 @@
  */
 package es.modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Guanat
@@ -16,7 +18,8 @@ public class Usuario {
     private int idrol;
     private String password;
     private String email;
-
+    private ArrayList<Permiso> listapermiso;
+    
     public int getIdrol() {
         return idrol;
     }

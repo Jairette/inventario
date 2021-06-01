@@ -11,7 +11,7 @@ package es.modelo;
  */
 public class Rol {
 
-    private int idRol=-1;
+    private int idRol = -1;
     private String nombreRol;
 
     public int getIdRol() {

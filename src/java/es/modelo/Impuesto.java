@@ -11,7 +11,7 @@ package es.modelo;
  */
 public class Impuesto {
 
-    private int idImpuesto;
+    private int idImpuesto = -1;
     private String nombreImpuesto;
 
     public int getIdImpuesto() {

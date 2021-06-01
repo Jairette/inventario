@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class Producto {
 
-    private int idProducto, idDisponibilidad, idCategoria, idImpuesto, numPedido, idTienda, cantidad, idtienda;
+    private int idProducto = -1, idDisponibilidad, idCategoria, idImpuesto, numPedido, idTienda, cantidad;
     private String sku, numSerie, detalles, esLlegada, esFinal, notas, ciclos,nombreProducto,color,teclado,AccesoriosIncluidos,defectos,anotaciones;
     private Date fechaCompra, fechaVenta;
     private boolean visibilidad;
@@ -26,8 +26,6 @@ public class Producto {
     public void setAnotaciones(String anotaciones) {
         this.anotaciones = anotaciones;
     }
-    
-    
     
     public String getDefectos() {
         return defectos;
@@ -69,12 +67,12 @@ public class Producto {
     }
     
     
-    public int getIdtienda() {
-        return idtienda;
+    public int getIdTienda() {
+        return idTienda;
     }
 
-    public void setIdtienda(int idtienda) {
-        this.idtienda = idtienda;
+    public void setIdTienda(int idTienda) {
+        this.idTienda = idTienda;
     }
 
     public String getNombreProducto() {
@@ -139,14 +137,6 @@ public class Producto {
 
     public void setNumPedido(int numPedido) {
         this.numPedido = numPedido;
-    }
-
-    public int getIdTienda() {
-        return idTienda;
-    }
-
-    public void setIdTienda(int idTienda) {
-        this.idTienda = idTienda;
     }
 
     public int getCantidad() {

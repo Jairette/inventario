@@ -11,7 +11,7 @@ package es.modelo;
  */
 public class Disponibilidad {
 
-    private int idDisponibilidad;
+    private int idDisponibilidad = -1;
     private String nombreDisponibilidad;
 
     public int getIdDisponibilidad() {
