@@ -25,7 +25,6 @@ public class Controlador extends HttpServlet {
             HttpSession session = request.getSession(true);
 
             String estado = (String) session.getAttribute("estado");
-
             String emailUsuario = request.getParameter("email");
 
             String contrasena = request.getParameter("contrasena");
@@ -49,6 +48,7 @@ public class Controlador extends HttpServlet {
                         siguientepag = "/verdatosproductowoo.jsp";
                         break;
                     case "modificarprodte":
+                        session.setAttribute("idproducto", request.getParameter("idproducto"));
                         siguientepag = "/modificarproductotecnico.jsp";
                         break;
                     case "":

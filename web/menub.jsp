@@ -34,7 +34,7 @@
                 case "tecnico":
         %>
         <form action="Controlador">
-            <%= listaProducto.size()%>
+            <%= listaProducto.size() %>
             <table>
                 <thead>
                     <tr>
@@ -55,28 +55,62 @@
                         <th><%=  p.getNombreProducto()%></th>
                         <th><%=  p.getEsFinal()%></th>
                         <th><%=  p.getCiclos()%></th>
-                        <th>
-                            <form method="POST" action="Controlador">
-                                <input type="hidden" name="idproducto" value="<%=  p.getIdProducto()%>">
-                                <input type="submit" value="evalua producto" name="evaluaprooducto">
-                            </form>
-                        </th>
-
-
-                </tr>                   
-                <%  }
-                %>
+                        <th><% session.setAttribute("idproducto", p.getIdProducto()); %><a href="Controlador">Realizar evaluacion del producto</a></th>
+                    </tr>                   
+                    <%  }
+                    %>
                 </tbody>
             </table>
         </form>
         <%          break;
+            /*case "web":*/
+        %>
+        <!--<form action="Controlador">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Disponibilidad</th>
+                        <th>Sku</th>
+                        <th>Numero de serie</th>
+                        <th>Nombre del Producto</th>
+                        <th>Estado final</th>
+                        <th>Ciclos</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%  /*session.setAttribute("estado", "verDatosWoo");
+                        for (Producto p : listaProducto) {*/
+
+                    %>
+                    <tr>
+                        <th><%= ""/* new DisponibilidadDAO().list(p.getIdDisponibilidad()).getNombreDisponibilidad()*/%></th>
+                        <th><%=  ""/*p.getSku()*/ %></th>
+                        <th><%=  ""/*p.getNumSerie()*/ %></th>
+                        <th><%=  ""/*p.getNombreProducto()*/%></th>
+                        <th><%=  ""/*p.getEsFinal()*/%></th>
+                        <th><%=  ""/*p.getCiclos()*/%></th>
+                        <th><% //session.setAttribute("idproducto", p.getIdProducto());   %><a href="Controlador">Realizar evaluacion del producto</a></th>
+                    </tr>                   
+                    <% 
+                    %>
+                </tbody>
+            </table>
+        </form>-->
+
+        <%          //break;
+            case "Supervisor":
+                session.setAttribute("estado", "login"); %>
+
+        <%          break;
+            case "":
             default:
                 session.setAttribute("estado", "login"); %>
         <h1>error con los premisos</h1>
         <a href="Controlador">volver al login</a>
         <%    break;
             }
-        } else { %>-->
+} else { %>-->
         <h1>estamos en el a del menu usuario no valido</h1>
         <%}%>
     </body>
