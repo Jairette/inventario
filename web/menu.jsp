@@ -29,8 +29,10 @@
         <h1>Menu</h1>
         <%
             String rol = (String) session.getAttribute("rol");
-            ArrayList<Producto> listaProducto = new ProductoDAO().listar();
-            switch (rol) {
+            ArrayList<Producto> listaProducto = new ProductoDAO().listar();%>
+        <%= rol %>
+        <%= session.getId() %>
+        <%    switch (rol) {
                 case "tecnico":
         %>
         <form action="Controlador">
@@ -47,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%  session.setAttribute("estado", "modificarprodte");
+                    <%  
                         for (Producto p : listaProducto) {%>
                     <tr>
                         <th><%= p.getSku()%></th>
@@ -57,18 +59,19 @@
                         <th><%=  p.getCiclos()%></th>
                         <th>
                             <form method="POST" action="Controlador">
+                                
                                 <input type="hidden" name="idproducto" value="<%=  p.getIdProducto()%>">
+                                <input type="hidden" name="todo" value="modificarprodte">
                                 <input type="submit" value="evalua producto" name="evaluaprooducto">
                             </form>
                         </th>
-
-
-                </tr>                   
-                <%  }
-                %>
+                    </tr>                   
+                    <%  }
+                    %>
                 </tbody>
             </table>
         </form>
+
         <%          break;
             default:
                 session.setAttribute("estado", "login"); %>
@@ -79,5 +82,9 @@
         } else { %>-->
         <h1>estamos en el a del menu usuario no valido</h1>
         <%}%>
+        <form action="Controlador" method="post">
+            <input type="hidden" name="todo" value="salir">
+            <input type="submit" value="Cerrar sesion" name="cerrarsesion">
+        </form>
     </body>
 </html>

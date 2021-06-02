@@ -15,10 +15,10 @@
             <form action="Controlador" method="post">
                 <%
                     session = request.getSession();
-                    String sessionid = session.getId();
+                    session.setAttribute("usuarioValido", false);
                     session.setAttribute("estado", "menu");
-                    session.setAttribute("rol","");
                 %>
+                
                 <label>Nombre de usuario
                     <input type="text" name="email" id="user">
                 </label>

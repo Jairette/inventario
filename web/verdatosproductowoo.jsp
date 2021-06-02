@@ -12,6 +12,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+        <form action="Controlador" method="post">
+            <input type="hidden" name="todo" value="salir">
+            <input type="submit" value="Cerrar sesion" name="cerrarsesion">
+        </form>
+        <form action="Controlador" method="post">
+            <input type="hidden" name="todo" value="menu">
+            <input type="submit" value="volver al menu" name="vueltamenu">
+        </form>
     </body>
 </html>

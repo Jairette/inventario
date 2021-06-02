@@ -25,19 +25,54 @@ public class Controlador extends HttpServlet {
             HttpSession session = request.getSession(true);
 
             String estado = (String) session.getAttribute("estado");
+            if (request.getParameter("todo") != null) {
+                estado = request.getParameter("todo");
+            }
             String emailUsuario = request.getParameter("email");
-
             String contrasena = request.getParameter("contrasena");
-
-            UsuarioDAO usuariodao = new UsuarioDAO();
-            Usuario usuario = usuariodao.validaUsuario(emailUsuario, contrasena);
             String siguientepag = "";
-            if (usuario.getIdUsuario() != -1) {
-                session.setAttribute("usuarioValido", true);
-                Rol rolusuario = new RolDAO().rolUsuario(usuario);
-                out.print("rol "+rolusuario);
-                session.setAttribute("rol", rolusuario.getNombreRol());
+            Usuario usuario;
+            if (!(boolean) session.getAttribute("usuarioValido")) {// entra si el usuariovalido es igual a false 
+                UsuarioDAO usuariodao = new UsuarioDAO();
+                usuario = usuariodao.validaUsuario(emailUsuario, contrasena);// si el email y la contraseña son correctos el usuario tendra los valores de la base de datos 
+                if (usuario.getIdUsuario() != -1) {//si se encuentra el  usuario en la base de datos el id que tendra el usuario sera de -1 es decir un id no valido
+                    session.setAttribute("usuarioValido", true);//establecemos el atributo usuario valido dentroo de la sesion a true 
+                    Rol rolusuario = new RolDAO().rolUsuario(usuario);//obtenemos su rol 
+                    session.setAttribute("rol", rolusuario.getNombreRol());//guardamos el nombre del rol en un atributo de la sesion
+                    //ahora en funcion de la pagina de la que venga se le redigira a una pagina siguente 
+                    switch (estado) {
+                        case "salir":// se invalida la sesion y se redirige al inicio
+                            session.invalidate();
+                            siguientepag = "/index.jsp";
+                            break;
+                        case "login":
+                            siguientepag = "/index.jsp";
+                            break;
+                        case "menu":
+                            siguientepag = "/menu.jsp";
+                            break;
+                        case "verDatosWoo":
+                            siguientepag = "/verdatosproductowoo.jsp";
+                            break;
+                        case "modificarprodte"://pagina que sirve para que los usuarios con rol tecnico puedan evaluar productos
+                            session.setAttribute("idproducto", request.getParameter("idproducto"));
+                            siguientepag = "/modificarproductotecnico.jsp";
+                            break;
+                        case "":
+                        default:
+                            siguientepag = "/index.jsp";
+                            break;
+                    }
+                } else {//si el usuario no es valido se redirige al logi
+                    session.invalidate();
+                    siguientepag = "/index.jsp";
+                }
+            } else {
                 switch (estado) {
+                    case "salir":
+                        session.invalidate();
+                        siguientepag = "/index.jsp";
+                        break;
                     case "login":
                         siguientepag = "/index.jsp";
                         break;
@@ -56,18 +91,15 @@ public class Controlador extends HttpServlet {
                         siguientepag = "/index.jsp";
                         break;
                 }
-            } else {
-                session.setAttribute("usuarioValido", false);
-                siguientepag="/index.jsp";
-                
             }
-            RequestDispatcher vista = request.getRequestDispatcher(siguientepag);
-            vista.forward(request, response);
-        }
-    }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        RequestDispatcher vista = request.getRequestDispatcher(siguientepag);
+        vista.forward(request, response);
+    }
+}
+
+@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         /* String acceso = "";
         String action = request.getParameter("accion");
@@ -106,13 +138,13 @@ public class Controlador extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

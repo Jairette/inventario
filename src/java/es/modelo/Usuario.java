@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Usuario {
 
-    private int idUsuario;
+    private int idUsuario=-1;
     private String nombreUsuario;
     private int idrol;
     private String password;

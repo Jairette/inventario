@@ -23,12 +23,25 @@
     <body>
         <%
             session = request.getSession();
-            String rol = (String) session.getAttribute("rol");
-            if ((Boolean) session.getAttribute("usuarioValido")&& rol.equals("tecnico")) {
-            Producto p=new ProductoDAO().list((int)session.getAttribute("idproducto"));
+            if (((Boolean)session.getAttribute("usuarioValido"))){
+                String rol = (String) session.getAttribute("rol");
+                    if(rol!=null&&rol.equals("tecnico")) {
+            //Producto p=new ProductoDAO().list((int)session.getAttribute("idproducto"));
         %>
+        <%= session.getId() %>   
         MENU EVALUA PRODUCTO
         
-        <%}%>
+                    <%}else{%>
+                        <%= rol %>
+                    <%}
+            }%>
+        <form action="Controlador" method="post">
+            <input type="hidden" name="todo" value="salir">
+            <input type="submit" value="Cerrar sesion" name="cerrarsesion">
+        </form>
+        <form action="Controlador" method="post">
+            <input type="hidden" name="todo" value="menu">
+            <input type="submit" value="volver al menu" name="vueltamenu">
+        </form>
     </body>
 </html>
