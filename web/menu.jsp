@@ -24,6 +24,7 @@
     <body>
         <%
             session = request.getSession();
+            session.setAttribute("formulario", false);
             if ((Boolean) session.getAttribute("usuarioValido")) {
         %>
         <h1>Menu</h1>

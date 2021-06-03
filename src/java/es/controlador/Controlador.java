@@ -1,13 +1,13 @@
 package es.controlador;
 
+import es.ModeloDAO.ProductoDAO;
 import es.ModeloDAO.RolDAO;
 import es.ModeloDAO.UsuarioDAO;
-import es.conexion.Conexion;
+import es.modelo.Producto;
 import es.modelo.Rol;
 import es.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,6 +56,23 @@ public class Controlador extends HttpServlet {
                             break;
                         case "modificarprodte"://pagina que sirve para que los usuarios con rol tecnico puedan evaluar productos
                             session.setAttribute("idproducto", request.getParameter("idproducto"));
+                            boolean formulario=(boolean) session.getAttribute("formulario");
+                            if(formulario){
+                                Producto prod=new Producto();
+                                prod.setIdDisponibilidad(Integer.parseInt(request.getParameter("disponibilidad")));
+                                prod.setSku(request.getParameter("sku"));
+                                prod.setNumSerie(request.getParameter("numSerie"));
+                                prod.setNombreProducto(request.getParameter("nombreproducto"));
+                                prod.setColor(request.getParameter("color"));
+                                prod.setTeclado(request.getParameter("teclado"));
+                                prod.setAccesoriosIncluidos(request.getParameter("accesoriosincluidos"));
+                                prod.setEsFinal(request.getParameter("estado"));
+                                prod.setDefectos(request.getParameter("defectos"));
+                                prod.setIdTienda(Integer.parseInt(request.getParameter("tienda")));
+                                prod.setCiclos(request.getParameter("ciclos"));
+                                new ProductoDAO().edit(prod);
+                                session.setAttribute("formulario", false);
+                            }
                             siguientepag = "/modificarproductotecnico.jsp";
                             break;
                         case "":
@@ -83,9 +100,26 @@ public class Controlador extends HttpServlet {
                         siguientepag = "/verdatosproductowoo.jsp";
                         break;
                     case "modificarprodte":
-                        session.setAttribute("idproducto", request.getParameter("idproducto"));
-                        siguientepag = "/modificarproductotecnico.jsp";
-                        break;
+                       session.setAttribute("idproducto", request.getParameter("idproducto"));
+                            boolean formulario=(boolean) session.getAttribute("formulario");
+                            if(formulario){
+                                Producto prod=new Producto();
+                                prod.setIdDisponibilidad(Integer.parseInt(request.getParameter("disponibilidad")));
+                                prod.setSku(request.getParameter("sku"));
+                                prod.setNumSerie(request.getParameter("numSerie"));
+                                prod.setNombreProducto(request.getParameter("nombreproducto"));
+                                prod.setColor(request.getParameter("color"));
+                                prod.setTeclado(request.getParameter("teclado"));
+                                prod.setAccesoriosIncluidos(request.getParameter("accesoriosincluidos"));
+                                prod.setEsFinal(request.getParameter("estado"));
+                                prod.setDefectos(request.getParameter("defectos"));
+                                prod.setIdTienda(Integer.parseInt(request.getParameter("tienda")));
+                                prod.setCiclos(request.getParameter("ciclos"));
+                                new ProductoDAO().edit(prod);
+                                session.setAttribute("formulario", false);
+                            }
+                            siguientepag = "/modificarproductotecnico.jsp";
+                            break;
                     case "":
                     default:
                         siguientepag = "/index.jsp";

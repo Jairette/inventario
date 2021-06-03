@@ -281,6 +281,13 @@ public class Producto {
         this.valor2 = valor2;
     }
 
+    @Override
+    public String toString() {
+        return "Producto{" + "idProducto=" + idProducto + ", idDisponibilidad=" + idDisponibilidad + ", idCategoria=" + idCategoria + ", idImpuesto=" + idImpuesto + ", numPedido=" + numPedido + ", idTienda=" + idTienda + ", cantidad=" + cantidad + ", sku=" + sku + ", numSerie=" + numSerie + ", detalles=" + detalles + ", esLlegada=" + esLlegada + ", esFinal=" + esFinal + ", notas=" + notas + ", ciclos=" + ciclos + ", nombreProducto=" + nombreProducto + ", color=" + color + ", teclado=" + teclado + ", AccesoriosIncluidos=" + AccesoriosIncluidos + ", defectos=" + defectos + ", anotaciones=" + anotaciones + ", fechaCompra=" + fechaCompra + ", fechaVenta=" + fechaVenta + ", visibilidad=" + visibilidad + ", costo=" + costo + ", costoTotal=" + costoTotal + ", envio=" + envio + ", otros=" + otros + ", iva_dif_iva=" + iva_dif_iva + ", porcentaje=" + porcentaje + ", valor=" + valor + ", pvp=" + pvp + ", valor2=" + valor2 + '}';
+    }
+    
+    
+    
     public Producto(int idProducto, int idDisponibilidad, int idCategoria, int idImpuesto, int numPedido, int idTienda, int cantidad, String sku, String numSerie, String detalles, String esLlegada, String notas, String ciclos, Date fechaCompra, boolean visibilidad, double costo, double costoTotal, double envio, double otros, double iva_dif_iva, double porcentaje, double valor, double pvp, double valor2,String nombreProducto,String color) {
         this.nombreProducto=nombreProducto;
         this.idProducto = idProducto;

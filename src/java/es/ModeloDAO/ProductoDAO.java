@@ -72,22 +72,43 @@ public class ProductoDAO implements CRUD<Producto> {
     @Override
     public Producto list(int id) {
         Producto producto = new Producto();
-        String sql = "select * from producto where idproducto=" + id;
+        String sql = "select idproducto,iddisponibilidad,idcategoria,idimpuesto,"
+                + "IFNULL(numpedido,'No asignado') as numpedido,idtienda,cantidad,"
+                + "sku,IFNULL(numserie,'No asignado') as numserie,"
+                + " IFNULL(detalles,'No asignado') AS detalles ,IFNULL(esLlegada,'No asignado') as esLlegada ,"
+                + " IFNULL(esFinal,'No asignado') as esFinal"
+                + ",IFNULL(notas,'No asignado') AS notas,"
+                + "IFNULL(ciclos,'No asignado') as ciclos,"
+                + "nombreproducto,color,IFNULL(teclado,'No asignado') as teclado,"
+                + " IFNULL(accesoriosincluidos,'No asignado') as  accesoriosincluidos "
+                + ", IFNULL(defectos,'No asignado') as defectos ,"
+                + " IFNULL(anotaciones,'No asignado') as anotaciones "
+                + ", visibilidad , IFNULL(costo,'No asignado') as costo,"
+                + " IFNULL(costototal,'No asignado') as costototal,"
+                + " IFNULL(envio,'No asignado') as envio ,"
+                + " IFNULL(otros,'No asignado') as otros,"
+                + "IFNULL(iva_dif_iva,'No  asignado') as iva_dif_iva ,"
+                + " IFNUll(porcentaje,'No asignado') as porcentaje,"
+                + " IFNULL(valor,'No asignado') as valor "
+                + ",IFNULL(pvp,'No asignado') as pvp "
+                + ",IFNULL(valor2,'No asignado') as valor2 from producto where idproducto="+id;
+        System.out.println("consulta "+sql);
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                producto.setNombreProducto(rs.getString("nombreproducto"));
                 producto.setIdProducto(rs.getInt("idproducto"));
-                producto.setEsLlegada(rs.getString("estadollegada"));
-                producto.setEsFinal(rs.getString("estadofinal"));
+                producto.setEsLlegada(rs.getString("esLlegada"));
+                producto.setEsFinal(rs.getString("esFinal"));
                 producto.setSku(rs.getString("sku"));
-                producto.setNumSerie(rs.getString("nserie"));
+                producto.setNumSerie(rs.getString("numserie"));
                 producto.setIdDisponibilidad(rs.getInt("iddisponibilidad"));
                 producto.setIdCategoria(rs.getInt("idcategoria"));
                 producto.setDetalles(rs.getString("detalles"));
-                producto.setFechaCompra(rs.getDate("fechacompra"));
-                producto.setFechaVenta(rs.getDate("fechaventa"));
+                /*producto.setFechaCompra(rs.getDate("fechacompra"));
+                producto.setFechaVenta(rs.getDate("fechaventa"));*/
                 producto.setIdImpuesto(rs.getInt("idimpuesto"));
                 producto.setVisibilidad(rs.getBoolean("visibilidad"));
                 producto.setCosto(rs.getDouble("costo"));
