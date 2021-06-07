@@ -11,14 +11,12 @@
         <br>
         <br>
         <div class="container">
-            <!--<a class="btn btn-success btn-lg" href="Controlador?accion=listar">Listar Persona</a>-->
             <form action="Controlador" method="post">
                 <%
                     session = request.getSession();
                     session.setAttribute("usuarioValido", false);
                     session.setAttribute("estado", "menu");
                 %>
-                
                 <label>Nombre de usuario
                     <input type="text" name="email" id="user">
                 </label>

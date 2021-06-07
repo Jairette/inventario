@@ -11,7 +11,10 @@ import interfaces.CRUD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -36,6 +39,10 @@ public class ProductoDAO implements CRUD<Producto> {
             int i=0;
             while (rs.next()) {
                 Producto producto = new Producto();
+                producto.setDefectos(rs.getString("defectos"));
+                producto.setAccesoriosIncluidos(rs.getString("accesoriosincluidos"));
+                producto.setTeclado(rs.getString("teclado"));
+                producto.setColor(rs.getString("color"));
                 producto.setNombreProducto(rs.getString("nombreproducto"));
                 producto.setIdProducto(rs.getInt("idproducto"));
                 producto.setEsLlegada(rs.getString("esLlegada"));
@@ -98,6 +105,10 @@ public class ProductoDAO implements CRUD<Producto> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                producto.setTeclado(rs.getString("teclado"));
+                producto.setDefectos(rs.getString("defectos"));
+                producto.setColor(rs.getString("color"));
+                producto.setAccesoriosIncluidos(rs.getString("accesoriosincluidos"));
                 producto.setNombreProducto(rs.getString("nombreproducto"));
                 producto.setIdProducto(rs.getInt("idproducto"));
                 producto.setEsLlegada(rs.getString("esLlegada"));
@@ -150,20 +161,40 @@ public class ProductoDAO implements CRUD<Producto> {
 
     @Override
     public boolean edit(Producto pr) {
-        String sql = "update producto set idproducto=" + pr.getIdProducto()
-               +", estadollegada='"+pr.getEsLlegada()+"', estadofinal='"+pr.getEsFinal()+"', sku='"+pr.getSku()
-               +"', nserie='"+pr.getNumSerie()+"', iddisponibilidad="+pr.getIdDisponibilidad()+", idcategoria="+pr.getIdCategoria()
-               +", detales='"+pr.getDetalles()+"', fechacompra='"+pr.getFechaCompra()+"', fechaventa='"+pr.getFechaVenta()+"', idimpuestos="+pr.getIdImpuesto()
-                +", visibilidad='"+ Boolean.toString(pr.isVisibilidad()).toUpperCase()+"', costo="+pr.getCosto()+", costototal"+pr.getCostoTotal()+", envio="+pr.getEnvio()+", otros="+pr.getOtros()
-                +", iva_dif_iva="+pr.getIva_dif_iva()+", porcentaje="+pr.getPorcentaje()+", valor="+pr.getValor()+", pvp="+pr.getPvp()+", valor2="+pr.getValor2()
-                +", idtienda="+pr.getIdTienda()+", notas='"+pr.getNotas()+"', ciclos='"+pr.getCiclos()+ "'" + "where idproducto=" + pr.getIdProducto();
         try {
+            int visibilidad;
+            if(pr.isVisibilidad()){
+                visibilidad=1;
+            }else{
+                visibilidad=0;
+            }
+            System.out.println("estoy en el edit");
+            String sql = "update producto set "+"defectos='"+pr.getDefectos()+"',accesoriosincluidos='"+pr.getAccesoriosIncluidos()+"',teclado='"+pr.getTeclado()+"',nombreproducto='"+pr.getNombreProducto()+"', color='"+pr.getColor()
+                    +"', esllegada='"+pr.getEsLlegada()+"', esfinal='"+pr.getEsFinal()+"', sku='"+pr.getSku()
+                    +"', numserie='"+pr.getNumSerie()+"', iddisponibilidad="+pr.getIdDisponibilidad()+", idcategoria="+pr.getIdCategoria()
+                    +", detalles='"+pr.getDetalles()+/*"', fechacompra='"+pr.getFechaCompra()+"', fechaventa='"+pr.getFechaVenta()+*/"', idimpuesto="+pr.getIdImpuesto()
+                    +", visibilidad="+visibilidad+", costo="+pr.getCosto()+", costototal="+pr.getCostoTotal()+", envio="+pr.getEnvio()+", otros="+pr.getOtros()
+                    +", iva_dif_iva="+pr.getIva_dif_iva()+", porcentaje="+pr.getPorcentaje()+", valor="+pr.getValor()+", pvp="+pr.getPvp()+", valor2="+pr.getValor2()
+                    +", idtienda="+pr.getIdTienda()+", notas='"+pr.getNotas()+"', ciclos='"+pr.getCiclos()+ "'" + " where idproducto=" + pr.getIdProducto();
+            System.out.println(sql);
+            
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.executeQuery();
+            //ps.executeUpdate();
+            if(ps.executeUpdate()==1){
+                System.out.println("se actualizo ");
+            }else{
+                System.out.print("hubo un error y no se actulizo ninguna fila");
+            }
             return true;
-        } catch (Exception e) {
-        }
-        return false;
+            /*catch (Exception e) {
+            
+            
+            }*/
+            
+        } catch (SQLException ex) {
+            System.err.println("casco el edit");
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }return false;
     }
 
    

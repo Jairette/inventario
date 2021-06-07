@@ -45,46 +45,19 @@ public class Controlador extends HttpServlet {
                             session.invalidate();
                             siguientepag = "/index.jsp";
                             break;
-                        case "login":
-                            siguientepag = "/index.jsp";
-                            break;
                         case "menu":
                             siguientepag = "/menu.jsp";
-                            break;
-                        case "verDatosWoo":
-                            siguientepag = "/verdatosproductowoo.jsp";
-                            break;
-                        case "modificarprodte"://pagina que sirve para que los usuarios con rol tecnico puedan evaluar productos
-                            session.setAttribute("idproducto", request.getParameter("idproducto"));
-                            boolean formulario=(boolean) session.getAttribute("formulario");
-                            if(formulario){
-                                Producto prod=new Producto();
-                                prod.setIdDisponibilidad(Integer.parseInt(request.getParameter("disponibilidad")));
-                                prod.setSku(request.getParameter("sku"));
-                                prod.setNumSerie(request.getParameter("numSerie"));
-                                prod.setNombreProducto(request.getParameter("nombreproducto"));
-                                prod.setColor(request.getParameter("color"));
-                                prod.setTeclado(request.getParameter("teclado"));
-                                prod.setAccesoriosIncluidos(request.getParameter("accesoriosincluidos"));
-                                prod.setEsFinal(request.getParameter("estado"));
-                                prod.setDefectos(request.getParameter("defectos"));
-                                prod.setIdTienda(Integer.parseInt(request.getParameter("tienda")));
-                                prod.setCiclos(request.getParameter("ciclos"));
-                                new ProductoDAO().edit(prod);
-                                session.setAttribute("formulario", false);
-                            }
-                            siguientepag = "/modificarproductotecnico.jsp";
                             break;
                         case "":
                         default:
                             siguientepag = "/index.jsp";
                             break;
                     }
-                } else {//si el usuario no es valido se redirige al logi
+                } else {//si el usuario no es valido se redirige al login
                     session.invalidate();
                     siguientepag = "/index.jsp";
                 }
-            } else {
+            } else {//el usuario es valido 
                 switch (estado) {
                     case "salir":
                         session.invalidate();
@@ -100,26 +73,39 @@ public class Controlador extends HttpServlet {
                         siguientepag = "/verdatosproductowoo.jsp";
                         break;
                     case "modificarprodte":
-                       session.setAttribute("idproducto", request.getParameter("idproducto"));
-                            boolean formulario=(boolean) session.getAttribute("formulario");
-                            if(formulario){
-                                Producto prod=new Producto();
-                                prod.setIdDisponibilidad(Integer.parseInt(request.getParameter("disponibilidad")));
-                                prod.setSku(request.getParameter("sku"));
-                                prod.setNumSerie(request.getParameter("numSerie"));
-                                prod.setNombreProducto(request.getParameter("nombreproducto"));
-                                prod.setColor(request.getParameter("color"));
-                                prod.setTeclado(request.getParameter("teclado"));
-                                prod.setAccesoriosIncluidos(request.getParameter("accesoriosincluidos"));
-                                prod.setEsFinal(request.getParameter("estado"));
-                                prod.setDefectos(request.getParameter("defectos"));
-                                prod.setIdTienda(Integer.parseInt(request.getParameter("tienda")));
-                                prod.setCiclos(request.getParameter("ciclos"));
-                                new ProductoDAO().edit(prod);
-                                session.setAttribute("formulario", false);
-                            }
-                            siguientepag = "/modificarproductotecnico.jsp";
-                            break;
+                        Integer idproducto;
+                        if (request.getParameter("idproducto") == null) {//(String) session.getAttribute("idproducto")
+                            idproducto = (Integer) session.getAttribute("idproducto");
+                        } else {//request.getParameter("idproducto")
+                            /*System.out.println(request.getParameter("idproducto"));
+                            System.out.println(Integer.parseInt(request.getParameter("idproducto")));*/
+                            idproducto=Integer.parseInt(request.getParameter("idproducto"));
+                            //System.out.println(idproducto);
+                            session.setAttribute("idproducto",idproducto);
+                            //System.out.println("vengo del menu");
+                        }
+                        boolean formulario = (boolean) session.getAttribute("formulario");
+                        if (formulario) {
+                            Producto prod = new Producto();
+                            prod.setIdProducto(idproducto);
+                            prod.setIdDisponibilidad(Integer.parseInt(request.getParameter("disponibilidad")));
+                            prod.setSku(request.getParameter("sku"));
+                            prod.setNumSerie(request.getParameter("numSerie"));
+                            prod.setNombreProducto(request.getParameter("nombreproducto"));
+                            prod.setColor(request.getParameter("color"));
+                            prod.setTeclado(request.getParameter("teclado"));
+                            prod.setAccesoriosIncluidos(request.getParameter("accesoriosincluidos"));
+                            prod.setEsFinal(request.getParameter("estado"));
+                            prod.setDefectos(request.getParameter("defectos"));
+                            prod.setIdTienda(Integer.parseInt(request.getParameter("tienda")));
+                            prod.setCiclos(request.getParameter("ciclos"));
+                            new ProductoDAO().edit(prod);
+                            System.out.println(prod);
+                            session.setAttribute("formulario", false);
+                            
+                        }
+                        siguientepag = "/modificarproductotecnico.jsp";
+                        break;
                     case "":
                     default:
                         siguientepag = "/index.jsp";
@@ -127,58 +113,25 @@ public class Controlador extends HttpServlet {
                 }
             }
 
-        RequestDispatcher vista = request.getRequestDispatcher(siguientepag);
-        vista.forward(request, response);
-    }
-}
-
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        /* String acceso = "";
-        String action = request.getParameter("accion");
-        if (action.equalsIgnoreCase("listar")) {
-            acceso = listar;
-        } else if (action.equalsIgnoreCase("add")) {
-            acceso = add;
-        } else if (action.equalsIgnoreCase("Agregar")) {
-            String dni = request.getParameter("txtDni");
-            String nom = request.getParameter("txtNom");
-//            p.setDni(dni);
-//            p.setNom(nom);
-//            dao.add(p);
-            acceso = listar;
-        } else if (action.equalsIgnoreCase("editar")) {
-            request.setAttribute("idper", request.getParameter("id"));
-            acceso = edit;
-        } else if (action.equalsIgnoreCase("Actualizar")) {
-            id = Integer.parseInt(request.getParameter("txtid"));
-            String dni = request.getParameter("txtDni");
-            String nom = request.getParameter("txtNom");
-//            p.setId(id);
-//            p.setDni(dni);
-//            p.setNom(nom);
-//            dao.edit(p);
-            acceso = listar;
-        } else if (action.equalsIgnoreCase("eliminar")) {
-            id = Integer.parseInt(request.getParameter("id"));
-//            p.setId(id);
-//            dao.eliminar(id);
-            acceso = listar;
+            RequestDispatcher vista = request.getRequestDispatcher(siguientepag);
+            vista.forward(request, response);
         }
-        RequestDispatcher vista = request.getRequestDispatcher(acceso);
-        vista.forward(request, response);*/
-        processRequest(request, response);
     }
 
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
     @Override
-        public String getServletInfo() {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

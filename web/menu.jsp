@@ -61,7 +61,7 @@
                         <th>
                             <form method="POST" action="Controlador">
                                 
-                                <input type="hidden" name="idproducto" value="<%=  p.getIdProducto()%>">
+                                <input type="hidden" name="idproducto" value="<%=p.getIdProducto()%>">
                                 <input type="hidden" name="todo" value="modificarprodte">
                                 <input type="submit" value="evalua producto" name="evaluaprooducto">
                             </form>

@@ -29,30 +29,39 @@
                 String rol = (String) session.getAttribute("rol");
                 if (rol != null && rol.equals("tecnico")) {
                     session.setAttribute("formulario", true);
-                    int idproducto = Integer.parseInt((String)session.getAttribute("idproducto"));
+                    int idproducto = (int)session.getAttribute("idproducto");
+                    out.print(idproducto);
+                    out.print(session.getId());
                     Producto p = new ProductoDAO().list(idproducto);
+                    out.print(p);
         %>
+
         <h1>MENU EVALUA PRODUCTO</h1>
         <form action="Controlador" method="post">
             <label>Disponibilidad:
                 <select name="disponibilidad" id="">
                     <%  ArrayList<Disponibilidad> listaDisponibilidad = new DisponibilidadDAO().listar();
-                        for (Disponibilidad d : listaDisponibilidad) {%>
+                        for (Disponibilidad d : listaDisponibilidad) {
+
+                            if (p.getIdDisponibilidad() == d.getIdDisponibilidad()) {%>
+                    <option value="<%= d.getIdDisponibilidad()%>" selected><%= d.getNombreDisponibilidad()%></option>
+                    <%} else {%>
                     <option value="<%= d.getIdDisponibilidad()%>"><%= d.getNombreDisponibilidad()%></option>
-                    <%}%>
+                    <%}
+                        }%>
                 </select>
             </label>
             <label>sku<input type="text" name="sku" value="<%= p.getSku()%>"></label>
-            <label>numero de serie<input type="text" name="numSerie" value="<%= p.getNumSerie()%> "></label>
+            <label>numero de serie<input type="text" name="numSerie" value="<%= p.getNumSerie()%>"></label>
             <label>nombre  de producto<input type="text" name="nombreproducto" value="<%= p.getNombreProducto()%>"></label>
             <label>color<input type="text" name="color" value="<%= p.getColor()%>"></label>
             <label>teclado<input type="text" name="teclado" value="<%= p.getTeclado()%>"></label>
             <label>Accesorios incluidos<input type="text" name="accesoriosincluidos" value="<%= p.getAccesoriosIncluidos()%>"></label>
             <label>Estados
                 <select name="estado">
-                    <option value="A">Como nuevo A</option>
-                    <option value="B">Bueno B</option>
-                    <option value="C">Correcto C</option>
+                    <option value="A"<% if(p.getEsFinal().charAt(0)=='A'){out.print("selected");} %> >Como nuevo A</option>
+                    <option value="B"<% if(p.getEsFinal().charAt(0)=='B'){out.print("selected");} %>>Bueno B</option>
+                    <option value="C"<% if(p.getEsFinal().charAt(0)=='C'){out.print("selected");} %>>Correcto C</option>
                 </select>
             </label>
             <label>N.Estado <input type="text" name="defectos" value="<%= p.getDefectos()%>"></label>
@@ -66,7 +75,7 @@
                     %>
                     <option value="<%= t.getIdTienda()%>"> <%= t.getNombreTienda()%></option>
                     <%}
-                }%>
+                        }%>
                 </select>
             </label>
             <h3>anotaciones</h3>
@@ -75,7 +84,7 @@
             <input type="hidden" name="todo" value="modificarprodte">
             <input type="submit" value="Guardar cambios">
         </form>
-
+            <%= session.getAttribute("idproducto") %>
         <%} else {%>
         Ha habido un problema con el rol de tu usuario
         <%}

@@ -35,8 +35,6 @@ public class Producto {
         this.defectos = defectos;
     }
     
-    
-    
     public String getAccesoriosIncluidos() {
         return AccesoriosIncluidos;
     }
